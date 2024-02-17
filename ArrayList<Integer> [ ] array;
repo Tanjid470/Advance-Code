@@ -1,0 +1,85 @@
+package tanjid;
+
+import java.util.*;
+
+//3002. Maximum Size of a Set After Removals
+/**
+ *
+ * @author SOS
+ */
+public class Tanjid {
+
+    public static List<String> letterCombinations(String digits) {
+
+        ArrayList<String>[] track = new ArrayList[8];
+
+        List<String> ansList = new ArrayList<>();
+
+        int digitLen = digits.length();
+        if (digitLen == 0) {
+            return ansList;
+        }
+
+        int convert = Integer.parseInt(digits);
+       
+        track[0] = new ArrayList<>(Arrays.asList("a", "b", "c"));
+        track[1] = new ArrayList<>(Arrays.asList("d", "e", "f"));
+        track[2] = new ArrayList<>(Arrays.asList("g", "h", "i"));
+        track[3] = new ArrayList<>(Arrays.asList("j", "k", "l"));
+        track[4] = new ArrayList<>(Arrays.asList("m", "n", "0"));
+        track[5] = new ArrayList<>(Arrays.asList("p", "q", "r", "s"));
+        track[6] = new ArrayList<>(Arrays.asList("t", "u", "v"));
+        track[7] = new ArrayList<>(Arrays.asList("w", "x", "y", "z"));
+
+        if (digitLen == 1) {
+            ansList = track[convert - 2];
+        }
+
+        int[] singleDigit = new int[digitLen];
+        int i = 0;
+        while (convert != 0) {
+            singleDigit[i++] = convert % 10;
+            convert /= 10;
+        }
+
+        if (digitLen == 2) {
+            for (int j = 0; j < track[singleDigit[1] - 2].size(); j++) {
+                for (int k = 0; k < track[singleDigit[0] - 2].size(); k++) {
+                    // System.out.println(track[singleDigit[0]-2].get(j));
+                    ansList.add(track[singleDigit[1] - 2].get(j) + track[singleDigit[0] - 2].get(k));
+                }
+            }
+        }
+        if (digitLen == 3) {
+            for (int l = 0; l < track[singleDigit[2] - 2].size(); l++) {
+                for (int j = 0; j < track[singleDigit[1] - 2].size(); j++) {
+                    for (int k = 0; k < track[singleDigit[0] - 2].size(); k++) {
+                        // System.out.println(track[singleDigit[0]-2].get(j));
+                        ansList.add(track[singleDigit[2] - 2].get(l) + track[singleDigit[1] - 2].get(j) + track[singleDigit[0] - 2].get(k));
+                    }
+                }
+            }
+        }
+        if (digitLen == 4) {
+            for (int m = 0; m < track[singleDigit[3] - 2].size(); m++) {
+                for (int l = 0; l < track[singleDigit[2] - 2].size(); l++) {
+                    for (int j = 0; j < track[singleDigit[1] - 2].size(); j++) {
+                        for (int k = 0; k < track[singleDigit[0] - 2].size(); k++) {
+                            // System.out.println(track[singleDigit[0]-2].get(j));
+                            ansList.add(track[singleDigit[3] - 2].get(m)+track[singleDigit[2] - 2].get(l) + track[singleDigit[1] - 2].get(j) + track[singleDigit[0] - 2].get(k));
+                        }
+                    }
+                }
+            }
+        }
+
+        return ansList;
+    }
+
+    public static void main(String[] args) {
+        String digits = "2349";
+
+        List<String> ans = letterCombinations(digits);
+        System.out.println(ans);
+    }
+}
