@@ -1,2 +1,2 @@
-## Java
-# Leetcode
+# Java
+## Leetcode
