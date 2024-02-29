@@ -1,0 +1,49 @@
+package tanjid;
+
+import java.util.*;
+
+//           2999. Count the Number of Powerful Integers
+/**
+ *
+ * @author SOS
+ */
+public class Tanjid {
+
+  public static long numberOfPowerfulInt(long start, long finish, int limit, String s) {
+      long ans=0;
+      for (long i = start; i < finish; i++) {
+          String value=Long.toString(i);    
+          if(value.contains(s)){
+               boolean flag=checkValid(value,s,limit) && check(i,limit);
+               if(flag) {
+                   ans++;
+               }
+              
+          }       
+      }
+      return ans;
+    }
+
+
+    private static boolean checkValid(String value,String s,int limit) {
+            int len=value.length();
+            int lenS=s.length();
+            String subValue=value.substring(len-lenS, len);       
+            return subValue.equals(s);
+    }
+
+    private static boolean check(long i,int limit) {
+        boolean flag=true;
+         while(i>0){
+             int hold= (int)(i%10);
+             if(hold>limit) flag=false;
+             i=i/10;  
+         }
+         return flag;
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(numberOfPowerfulInt(6,6000,4,"124"));
+
+    }
+}
